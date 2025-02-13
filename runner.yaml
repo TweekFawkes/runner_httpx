@@ -20,10 +20,10 @@ build:
     mkdir -p /go/src
     mkdir -p /go/bin
     cd /go/src
-    git clone https://github.com/projectdiscovery/httpx
+    cd /go/src && git clone https://github.com/projectdiscovery/httpx
     cd /go/src/httpx
-    go mod download
-    go build -o /go/bin/httpx ./cmd/httpx/httpx.go
+    cd /go/src/httpx && go mod download
+    cd /go/src/httpx && go build -o /go/bin/httpx ./cmd/httpx/httpx.go
     echo "END: Building httpx"
 
 webform:
