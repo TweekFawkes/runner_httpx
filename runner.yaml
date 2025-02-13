@@ -30,4 +30,4 @@ webform:
 
 launch:
   type: binary
-  command: /go/bin/httpx -u ${url_to_scan} -silent
+  command: /go/bin/httpx -u ${url_to_scan}
