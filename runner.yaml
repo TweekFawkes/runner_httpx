@@ -1,0 +1,36 @@
+runner:
+  name: HTTP Toolkit
+  description: Fast and multi-purpose HTTP toolkit that allows running multiple probes using the retryablehttp library.
+  version: 0.0.1
+
+build:
+  commands: |
+    echo "START: Building httpx"
+    apt-get update
+    apt-get install -y ca-certificates
+    apt-get install -y build-essential
+    apt-get install -y git
+    wget https://go.dev/dl/go1.21.4.linux-amd64.tar.gz
+    tar -C /usr/local -xzf go1.21.4.linux-amd64.tar.gz
+    rm go1.21.4.linux-amd64.tar.gz
+    export GOROOT=/usr/local/go
+    export GOPATH=/go
+    export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+    export GO111MODULE=on
+    mkdir -p /go/src
+    mkdir -p /go/bin
+    cd /go/src
+    git clone https://github.com/projectdiscovery/httpx
+    cd /go/src/httpx
+    go mod download
+    go build -o /go/bin/httpx ./cmd/httpx/httpx.go
+    echo "END: Building httpx"
+
+webform:
+  - name: url_to_scan
+    prompt: URL to Scan
+    type: text
+
+launch:
+  type: binary
+  command: /go/bin/httpx -u ${url_to_scan} -silent
