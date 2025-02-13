@@ -10,20 +10,17 @@ build:
     apt-get install -y ca-certificates
     apt-get install -y build-essential
     apt-get install -y git
-    wget https://go.dev/dl/go1.21.4.linux-amd64.tar.gz
-    tar -C /usr/local -xzf go1.21.4.linux-amd64.tar.gz
-    rm go1.21.4.linux-amd64.tar.gz
-    export GOROOT=/usr/local/go
-    export GOPATH=/go
-    export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-    export GO111MODULE=on
+    wget https://go.dev/dl/go1.21.6.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.21.6.linux-amd64.tar.gz && rm go1.21.6.linux-amd64.tar.gz
+    ENV GOROOT=/usr/local/go
+    ENV GOPATH=/go
+    ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+    ENV GO111MODULE=on
+    ENV CGO_ENABLED=1
     mkdir -p /go/src
     mkdir -p /go/bin
-    cd /go/src
-    cd /go/src && git clone https://github.com/projectdiscovery/httpx
-    cd /go/src/httpx
-    cd /go/src/httpx && go mod download
-    cd /go/src/httpx && go build -o /go/bin/httpx ./cmd/httpx/httpx.go
+    cd /tmp && git clone https://github.com/projectdiscovery/httpx
+    cd /tmp/httpx && go mod download
+    cd /tmp/httpx && go install ./cmd/httpx
     echo "END: Building httpx"
 
 webform:
