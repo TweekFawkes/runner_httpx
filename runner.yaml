@@ -24,10 +24,10 @@ build:
     echo "END: Building httpx"
 
 webform:
-  - name: url_to_scan
-    prompt: URL to Scan
+  - name: url
+    prompt: url
     type: text
 
 launch:
   type: binary
-  command: /go/bin/httpx -u ${url_to_scan}
+  command: /go/bin/httpx -pa -u ${url} -title -status-code -tech-detect -favicon -jarm -hash md5 -oa outputs/output
